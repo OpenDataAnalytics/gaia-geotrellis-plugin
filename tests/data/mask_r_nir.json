@@ -1,0 +1,18 @@
+{
+  "_type": "gaia_geotrellis.processes.GeotrellisMaskRedIRClouds",
+  "inputs": [
+    {
+      "_type": "gaia.geo.geo_inputs.RasterFileIO",
+      "uri": "{basepath}/LC81070352015218LGN00_B4.TIF"
+    },
+    {
+      "_type": "gaia.geo.geo_inputs.RasterFileIO",
+      "uri": "{basepath}/LC81070352015218LGN00_B4.TIF"
+    },
+    {
+      "_type": "gaia.geo.geo_inputs.RasterFileIO",
+      "uri": "{basepath}/LC81070352015218LGN00_B4.TIF"
+    }    
+  ],
+  "bands": ""
+}
