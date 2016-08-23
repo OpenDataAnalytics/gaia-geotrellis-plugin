@@ -35,9 +35,10 @@ class TestGeotrellisProcessors(unittest.TestCase):
         Test GeotrellisCloudMaskProcess for raster inputs
         """
 
-        inputs = [RasterFileIO(uri=f) for f in [os.path.join(testfile_path,
-                             'LC81070352015218LGN00_B{}.TIF'.format(band))
-                                                for band in ('4', '5', 'QA')]]
+        inputs = [RasterFileIO(uri=f) for f in [
+            os.path.join(testfile_path,
+                         'LC81070352015218LGN00_B{}.TIF'.format(band))
+            for band in ('4', '5', 'QA')]]
 
         process = GeotrellisCloudMaskProcess(inputs=inputs, bands='')
         try:
@@ -62,6 +63,5 @@ class TestGeotrellisProcessors(unittest.TestCase):
             self.assertTrue(os.path.exists(output))
             self.assertGreaterEqual(os.path.getsize(output), 1220000)
         finally:
-            pass
-            # if process:
-            #     process.purge()
+            if process:
+                process.purge()
