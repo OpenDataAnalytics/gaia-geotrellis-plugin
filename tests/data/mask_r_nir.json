@@ -1,5 +1,5 @@
 {
-  "_type": "gaia_geotrellis.processes.GeotrellisMaskRedIRClouds",
+  "_type": "gaia_geotrellis.processes.GeotrellisCloudMaskProcess",
   "inputs": [
     {
       "_type": "gaia.geo.geo_inputs.RasterFileIO",

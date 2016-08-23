@@ -42,7 +42,7 @@ object ShuntingYard extends StandardTokenParsers {
     "-" ^^^ { (left:Expr, right:Expr) => BinaryOperator(left, "-", right) } )
   def expr = ( sum | term )
 
-  def parse(s:String) = {
+  def pipe2geotrellis(s:String) = {
     val tokens = new lexical.Scanner(s)
     phrase(expr)(tokens)
   }
@@ -51,7 +51,7 @@ object ShuntingYard extends StandardTokenParsers {
     case null => return ""
     case "" => return ""
     case _ =>
-      parse(exprstr) match {
+      pipe2geotrellis(exprstr) match {
         case Success(tree, _) =>
           println("Tree: "+tree)
           val v = tree.rpn

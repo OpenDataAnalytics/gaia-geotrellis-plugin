@@ -21,7 +21,8 @@ import unittest
 
 from gaia.geo import RasterFileIO
 
-from gaia_geotrellis.processes import GeotrellisMaskRedIRClouds
+from gaia_geotrellis.processes import GeotrellisCloudMaskProcess, \
+    GeotrellisNDVIProcess
 
 testfile_path = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../data')
@@ -31,17 +32,35 @@ class TestGeotrellisProcessors(unittest.TestCase):
 
     def test_process_maskclouds(self):
         """
-        Test LeastCostProcess for raster inputs
+        Test GeotrellisCloudMaskProcess for raster inputs
         """
 
         inputs = [RasterFileIO(uri=f) for f in [os.path.join(testfile_path,
                              'LC81070352015218LGN00_B{}.TIF'.format(band))
                                                 for band in ('4', '5', 'QA')]]
 
-        process = GeotrellisMaskRedIRClouds(inputs=inputs, bands='')
+        process = GeotrellisCloudMaskProcess(inputs=inputs, bands='')
         try:
             process.compute()
-            self.assertTrue(os.path.exists(process.output.uri))
+            output = process.output.uri
+            self.assertTrue(os.path.exists(output))
+            self.assertGreaterEqual(os.path.getsize(output), 1220000)
+        finally:
+            if process:
+                process.purge()
+
+    def test_process_ndvi(self):
+        """
+        Test GeotrellisNDVIProcess for raster inputs
+        """
+
+        inputs = [RasterFileIO(uri=os.path.join(testfile_path, 'landsat.tif'))]
+        process = GeotrellisNDVIProcess(inputs=inputs, bands='0,1')
+        try:
+            process.compute()
+            output = process.output.uri
+            self.assertTrue(os.path.exists(output))
+            self.assertGreaterEqual(os.path.getsize(output), 1220000)
         finally:
             pass
             # if process:
