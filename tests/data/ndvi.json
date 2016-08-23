@@ -1,0 +1,10 @@
+{
+  "_type": "gaia_geotrellis.processes.GeotrellisNDVIProcess",
+  "inputs": [
+    {
+      "_type": "gaia.geo.geo_inputs.RasterFileIO",
+      "uri": "{basepath}/landsat.tif"
+    }
+  ],
+  "bands": "0,1"
+}

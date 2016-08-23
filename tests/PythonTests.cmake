@@ -11,7 +11,7 @@ else()
   set(_py_branch_cov False)
 endif()
 
-set(_py_package_dir "${PROJECT_SOURCE_DIR}/gaia_leastcostpath")
+set(_py_package_dir "${PROJECT_SOURCE_DIR}/gaia_geotrellis")
 
 configure_file(
   "${PROJECT_SOURCE_DIR}/tests/coveragerc.in"

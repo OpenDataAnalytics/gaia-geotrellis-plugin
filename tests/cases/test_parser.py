@@ -28,10 +28,10 @@ testfile_path = os.path.join(os.path.dirname(
 
 
 class TestGeotrellisProcessesViaParser(unittest.TestCase):
-    """Tests for the Gaia Least Cost plugin via Parser"""
+    """Tests for the GeotrellisCloudMaskProcess via Parser"""
 
     def test_process_maskclouds(self):
-        """Test Least Cost Process"""
+        """Test GeotrellisCloudMaskProcess"""
         with open(os.path.join(testfile_path,
                                'mask_r_nir.json')) as inf:
             body_text = inf.read().replace('{basepath}', testfile_path)
@@ -40,7 +40,22 @@ class TestGeotrellisProcessesViaParser(unittest.TestCase):
             process.compute()
             output = process.output.uri
             self.assertTrue(os.path.exists(output))
+            self.assertGreaterEqual(os.path.getsize(output), 1220000)
         finally:
-            pass
-            #if process:
-                #process.purge()
+            if process:
+                process.purge()
+
+    def test_process_ndvi(self):
+        """Test GeotrellisNDVIProcess"""
+        with open(os.path.join(testfile_path,
+                               'ndvi.json')) as inf:
+            body_text = inf.read().replace('{basepath}', testfile_path)
+        process = json.loads(body_text, object_hook=deserialize)
+        try:
+            process.compute()
+            output = process.output.uri
+            self.assertTrue(os.path.exists(output))
+            self.assertGreaterEqual(os.path.getsize(output), 1220000)
+        finally:
+            if process:
+                process.purge()
