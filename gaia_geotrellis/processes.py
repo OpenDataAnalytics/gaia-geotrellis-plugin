@@ -16,16 +16,20 @@ def pipe2geotrellis(geoclass, inputs, output, args):
     # Memory parameter
     memory = config['gaia_geotrellis']['geotrellis_memory']
 
+    #Spark Master
+    spark = config['gaia_geotrellis']['spark_master']
+
     # Command to be called by the subprocess
     command = ["java", memory, "-cp", jar, geoclass,
                ','.join([i.uri for i in inputs]), output.uri] + args
+    command.append(spark)
     output.create_output_dir(output.uri)
     process = subprocess.Popen(command, stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
-    output, error = process.communicate()
-    if error:
+    result, error = process.communicate()
+    if process.returncode != 0:
         raise GaiaException(u'Geotrellis error: {}'.format(error))
-    return output
+    return result
 
 
 class GeotrellisProcess(GaiaProcess):

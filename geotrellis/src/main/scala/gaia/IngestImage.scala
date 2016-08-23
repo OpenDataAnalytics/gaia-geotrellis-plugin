@@ -44,7 +44,7 @@ object IngestImage {
 
 	    // Do the ingestion
 	    run(sc, inputPath, outputPath)
-	    
+
 	    // Stop the service
 	    sc.stop()
 	}
